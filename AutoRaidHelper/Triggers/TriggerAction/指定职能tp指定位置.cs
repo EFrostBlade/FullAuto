@@ -77,7 +77,6 @@ internal class 指定职能tp指定位置 : ITriggerAction
 
     public bool Handle()
     {
-        Share.DebugPointWithText.Clear();
         foreach (var role in roles)
         {
             if (role.Value)
@@ -91,7 +90,14 @@ internal class 指定职能tp指定位置 : ITriggerAction
                 {
                     RemoteControlHelper.SetPos(role.Key, position);
                 }
-                Share.DebugPointWithText.Add(role.Key, position);
+                if (Share.DebugPointWithText.ContainsKey(role.Key))
+                {
+                    Share.DebugPointWithText[role.Key] = position;
+                }
+                else
+                {
+                    Share.DebugPointWithText.Add(role.Key, position);
+                }
             }
         }
         return true;
